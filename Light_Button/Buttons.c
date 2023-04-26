@@ -3,9 +3,9 @@
 int main() {
 
   //Stores ID's for needed GPIO.
-  const int buttonOne = 20;
-  const int buttonTwo = 21;
-  const int ledOne = 0; //Its 0 for Pico W and 25 for Pico (maybe find way to get difference)
+  const unsigned int buttonOne = 20;
+  const unsigned int buttonTwo = 21;
+  const unsigned int ledOne = 0; //Its 0 for Pico W and 25 for Pico (maybe find way to get difference)
 
   //Initialises said GPIO.
   gpio_init(buttonOne);

@@ -21,4 +21,5 @@ pico_sdk_init()
 
 # Adds directories for projects made by others that I completed the stubs for #
 add_subdirectory(Light_Button)
+add_subdirectory(Tone_Generator)
 #add_subdirectory()
