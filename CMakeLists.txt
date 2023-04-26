@@ -1,5 +1,5 @@
 # Sets minimum version for the CMaker#
-cmake_minimum_required(VERSION 3.12)
+cmake_minimum_required(VERSION 3.13)
 
 # Pulls in the pico sdk #
 include(pico_sdk_import.cmake)
@@ -16,8 +16,9 @@ endif()
 pico_sdk_init()
 
 # Adds directories for original projects made by me #
-add_subdirectory(TCP_Math_Parser)
-add_subdirectory(Image_Display)
+#add_subdirectory(TCP_Math_Parser)
+#add_subdirectory(Image_Display)
 
 # Adds directories for projects made by others that I completed the stubs for #
+add_subdirectory(Light_Button)
 #add_subdirectory()
