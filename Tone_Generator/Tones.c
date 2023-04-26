@@ -6,4 +6,20 @@
 
 int main() {
 
+    //Stores ID's for needed GPIO.
+    const unsigned int buttonOnePin = 20;    //lowers tone
+    const unsigned int buttonTwoPin = 21;    //resets tone
+    const unsigned int buttonThreePin = 22;  //raises tone
+
+    //Initialises said GPIO.
+    gpio_init(buttonOnePin);
+    gpio_init(buttonTwoPin);
+    gpio_init(buttonThreePin);
+    gpio_init(buzzerPin);
+
+    //Sets the direction of the different GPIO for use.
+    gpio_set_dir(buttonOnePin, GPIO_IN);
+    gpio_set_dir(buttonTwoPin, GPIO_IN);
+    gpio_set_dir(buttonThreePin, GPIO_IN);
+    gpio_set_dir(buzzerPin, GPIO_OUT);
 }
