@@ -14,5 +14,10 @@ int main() {
   gpio_set_dir(buttonOne, GPIO_IN);
   gpio_set_dir(ledOne, GPIO_OUT);
 
-  //Write your own code to turn a LED on when button is pressed
+  //Infinite Loop, turns on led when button is pressed, else its off.
+  //According to the pinout diagram buttons are "ACTIVE LOW" so we turn of led when button is 1.
+  while (1) {
+    if (gpio_get(buttonOne)){ gpio_put(ledOne,0); }
+    else { gpio_put(ledOne,1); }
+  }
 }
