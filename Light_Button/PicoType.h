@@ -10,9 +10,6 @@ Code and concepts adapted from this rp forum post: https://forums.raspberrypi.co
 #include "pico/stdlib.h"
 #include "hardware/adc.h"
 
-// Defines the cache value for the library.
-int32_t isPicoW_Cached;
-
 // Defines the libraries main funtion.
 int32_t IsPicoW(void);
 
