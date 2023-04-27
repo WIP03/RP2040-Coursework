@@ -88,4 +88,4 @@ float freqs[] = {27.5f,
 3729.31f,
 3951.066f,
 4186.009f};
-static const unsigned int buzzerPin = 18;
+static const uint buzzerPin = 18;

@@ -7,9 +7,9 @@
 int main() {
 
     //Stores ID's for needed GPIO.
-    const unsigned int buttonOnePin = 20;    //lowers tone
-    const unsigned int buttonTwoPin = 21;    //resets tone
-    const unsigned int buttonThreePin = 22;  //raises tone
+    const uint buttonOnePin = 20;    //lowers tone
+    const uint buttonTwoPin = 21;    //resets tone
+    const uint buttonThreePin = 22;  //raises tone
 
     //Initialises said GPIO.
     gpio_init(buttonOnePin);

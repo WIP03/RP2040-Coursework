@@ -1,7 +1,6 @@
 # Lists all local c and h files needed for the program #
 add_executable(Tone_Generator
         Tones.c
-        Tones.h
         )
 
 # Pulls in common dependencies #
