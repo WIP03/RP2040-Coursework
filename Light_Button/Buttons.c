@@ -1,11 +1,16 @@
 #include "pico/stdlib.h"
+#include "hardware/adc.h"
+#include "PicoType.h"
 
 int main() {
 
   //Stores ID's for needed GPIO.
-  const unsigned int buttonOne = 20;
-  const unsigned int buttonTwo = 21;
-  const unsigned int ledOne = 0; //Its 0 for Pico W and 25 for Pico (maybe find way to get difference)
+  const uint buttonOne = 20;
+  const uint buttonTwo = 21;
+  uint ledOne;
+
+  if (isPicoW()){ ledOne = 0;  } // Pico W GPIO is 0 for led.
+  else          { ledOne = 25; } // Pico GPIO is 25 for led.
 
   //Initialises said GPIO.
   gpio_init(buttonOne);
