@@ -4,7 +4,7 @@ add_executable(Tone_Generator
         )
 
 # Pulls in common dependencies #
-target_link_libraries(Tone_Generator pico_stdlib hardware_pwm hardware_clocks)
+target_link_libraries(Tone_Generator pico_stdlib hardware_pwm hardware_clocks hardware_gpio)
 
 # Creates the map/bin/hex file etc #
 pico_add_extra_outputs(Tone_Generator)

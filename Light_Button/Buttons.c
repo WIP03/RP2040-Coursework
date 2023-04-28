@@ -42,7 +42,7 @@ int main() {
         gpio_set_dir(ledOne, GPIO_OUT);
 
         // Turns on led when button one is pressed, else its off. Stops looping when button two is pressed.
-        // According to the pinout diagram buttons are "ACTIVE LOW" so we turn of led when button is 1.
+        // According to the pinout diagram buttons are "ACTIVE LOW" so we turn off led when button is 1.
         while (gpio_get(buttonTwo)) {
           if (gpio_get(buttonOne)){ gpio_put(ledOne,0); }
           else { gpio_put(ledOne,1); }
