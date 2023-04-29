@@ -1,103 +1,51 @@
 # include "pico/stdlib.h"
 
-void tone(float freq, float length); // freq in Hz, length in ms
+// Sets up needed information for boths pins and frequency.
+const uint BUZZER = 18;
+uint ledPins[] = {2,3,4,5,6,7,8,9,10,11,12,13};
+float freqs[] = {261.63, 277.18, 293.66, 311.13, 329.63, 349.23, 369.99, 392.00, 415.30, 440.00, 466.16, 493.88};
 
-int main() {
-#ifndef PICO_DEFAULT_LED_PIN
-#warning blink example requires a board with a regular LED
-# else
-    const uint LED_PIN = PICO_DEFAULT_LED_PIN;
-    gpio_init(LED_PIN);
-    gpio_set_dir(LED_PIN, GPIO_OUT);
-    const uint LED_PIN_TWO = 2;
-    gpio_init(LED_PIN_TWO);
-    gpio_set_dir(LED_PIN_TWO, GPIO_OUT);
-    const uint LED_PIN_THREE = 3;
-    gpio_init(LED_PIN_THREE);
-    gpio_set_dir(LED_PIN_THREE, GPIO_OUT);
-    const uint LED_PIN_FOUR = 4;
-    gpio_init(LED_PIN_FOUR);
-    gpio_set_dir(LED_PIN_FOUR, GPIO_OUT);
-    const uint LED_PIN_FIVE = 5;
-    gpio_init(LED_PIN_FIVE);
-    gpio_set_dir(LED_PIN_FIVE, GPIO_OUT);
-    const uint LED_PIN_SIX = 6;
-    gpio_init(LED_PIN_SIX);
-    gpio_set_dir(LED_PIN_SIX, GPIO_OUT);
-    const uint LED_PIN_SEVEN = 7;
-    gpio_init(LED_PIN_SEVEN);
-    gpio_set_dir(LED_PIN_SEVEN, GPIO_OUT);
-    const uint LED_PIN_EIGHT = 8;
-    gpio_init(LED_PIN_EIGHT);
-    gpio_set_dir(LED_PIN_EIGHT, GPIO_OUT);
-    const uint LED_PIN_NINE = 9;
-    gpio_init(LED_PIN_NINE);
-    gpio_set_dir(LED_PIN_NINE, GPIO_OUT);
-    // There is a missing pin, fill in the blank so that all the MakerBoard's LEDs will light up
+/**
+ * @brief Functions which generates a tone given its frequency, displaying which tone it is by its LED.
+ * @param freq 
+ * @param length 
+ * @param ledPin 
+ */
+void tone (float freq, float length, uint ledPin) {
+    int cycles = 0; // Number of times the buzzer is turned on during a particular tone.
+    gpio_put(ledPin, 1); // Turns off LED before sound is played.
 
-
-    const uint LED_PIN_ELEVEN = 11;
-    gpio_init(LED_PIN_ELEVEN);
-    gpio_set_dir(LED_PIN_ELEVEN, GPIO_OUT);
-    const uint LED_PIN_TWELVE = 12;
-    gpio_init(LED_PIN_TWELVE);
-    gpio_set_dir(LED_PIN_TWELVE, GPIO_OUT);
-    const uint LED_PIN_THIRTEEN = 13;
-    gpio_init(LED_PIN_THIRTEEN);
-    gpio_set_dir(LED_PIN_THIRTEEN, GPIO_OUT);
-    const uint BUZZER; // Have a look at the Maker board to find out which pin the buzzer uses. Put that pin's number here.
-    gpio_init(BUZZER);
-    gpio_set_dir(BUZZER, GPIO_OUT);
-
-    while (true) {
-        gpio_put(LED_PIN_TWO, 1);
-        tone(261.63, 600);
-        gpio_put(LED_PIN_TWO, 0);
-        gpio_put(LED_PIN_THREE, 1);
-        tone(277.18, 600);
-        gpio_put(LED_PIN_THREE, 0);
-        gpio_put(LED_PIN_FOUR, 1);
-        tone(293.66, 600);
-        gpio_put(LED_PIN_FOUR, 0);
-        gpio_put(LED_PIN_FIVE, 1);
-        tone(311.13, 600);
-        gpio_put(LED_PIN_FIVE, 0);
-        gpio_put(LED_PIN_SIX, 1);
-        tone(329.63, 600);
-        gpio_put(LED_PIN_SIX, 0);
-        gpio_put(LED_PIN_SEVEN, 1);
-        tone(349.23, 600);
-        gpio_put(LED_PIN_SEVEN, 0);
-        gpio_put(LED_PIN_EIGHT, 1);
-        tone(369.99, 600);
-        gpio_put(LED_PIN_EIGHT, 0);
-        gpio_put(LED_PIN_NINE, 1);
-        tone(392.00, 600);
-        gpio_put(LED_PIN_NINE, 0);
-        gpio_put(LED_PIN_TEN, 1);
-        tone(415.30, 600);
-        gpio_put(LED_PIN_TEN, 0);
-        gpio_put(LED_PIN_ELEVEN, 1);
-        tone(440.00, 600);
-        gpio_put(LED_PIN_ELEVEN, 0);
-        gpio_put(LED_PIN_TWELVE, 1);
-        tone(466.16, 600);     
-        gpio_put(LED_PIN_TWELVE, 0);
-        gpio_put(LED_PIN_THIRTEEN, 1);
-        tone(493.88, 600);
-        gpio_put(LED_PIN_THIRTEEN, 0);        
-    }
-#endif
-}
-void tone (float freq, float length) {
-    int cycles = 0;
+    // Switches on the GPIO for the buzzer for a particular tile in given intervals giving it a unique sound.
     while (cycles * (1/freq) < length / 1000)
     {
-        gpio_put(18, 1);
+        gpio_put(BUZZER, 1);
         sleep_us((int) 1000000/(2*freq));
-        gpio_put(18, 0);
-        // Which line is missing here? Hint: think of the shape of the wave that we are creating.
+        gpio_put(BUZZER, 0);
+        sleep_us((int) 1000000/(2*freq));
         cycles = cycles + 1;
     }
+    gpio_put(ledPin, 0); // Turns off LED after sound is played.
+}
+
+/**
+ * @brief Main function of program, handles the program loop and sets up its functionality.
+ * @return int 
+ */
+int main() {
+    // Sets up the GPIO for the maker boards BUZZER.
+    gpio_init(BUZZER);
+    gpio_set_dir(BUZZER, GPIO_OUT);
     
+    // Initialises all the LED pins which show the current sound being played.
+    for (uint i = 0; i < 12; i++){
+        gpio_init(ledPins[i]);
+        gpio_set_dir(ledPins[i], GPIO_OUT);
+    }
+
+    // Plays the tones in a loop, playing each sound for 600 milliseconds.
+    while (true) {
+        for (uint j = 0; j < 12; j++){
+            tone(freqs[j], 600, ledPins[j]);   
+        } 
+    }
 }
