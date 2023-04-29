@@ -1,26 +1,28 @@
 #include "pico/stdlib.h"
 
-
+// Sets the Id's for the maker boards buttons.
 const uint buttonOnePin = 20;
 const uint buttonTwoPin = 21;
 const uint buttonThreePin = 22;
 
+// Sets the Id's for the IO the LED's will use to display the current count.
 const uint bitLedOne= 9;
 const uint bitLedTwo = 8;
 const uint bitLedThree = 7;
 const uint bitLedFour = 6;
-
 const uint bitLedFive= 5;
 const uint bitLedSix = 4;
 const uint bitLedSeven = 3;
 const uint bitLedEight = 2;
 
-
+// Sets the counter of the binary value.
 uint counter = 0;
 
-
+/**
+ * @brief Updates the IO to display the current count of the program.
+ */
 void updateDisplay(void){
-    //
+    // Uses Modulus to check if a given LED should be lit or not.
     if((counter % 2) > 0) {gpio_put(bitLedOne,1);} else {gpio_put(bitLedOne,0);}          //
     if((counter % 4) > 1) {gpio_put(bitLedTwo,1);} else {gpio_put(bitLedTwo,0);}          //
     if((counter % 8) > 3) {gpio_put(bitLedThree,1);} else {gpio_put(bitLedThree,0);}      //
@@ -31,18 +33,26 @@ void updateDisplay(void){
     if((counter % 256) > 127) {gpio_put(bitLedEight,1);} else {gpio_put(bitLedEight,0);}  //
 }
 
+/**
+ * @brief Updates the counter with limits based on the max int we can display.
+ * @param buttonId 
+ * @param event_mask 
+ */
 void updateCounter(uint buttonId, uint32_t event_mask){
+    // Uses a switch to change counters based on which button is pressed.
     switch (buttonId){
-        case buttonOnePin: if (counter > 0) { counter--; } break;       //
-        case buttonTwoPin: (counter = 0); break;                        //
-        case buttonThreePin: if (counter < 255) { counter++; } break;   //
+        case buttonOnePin: if (counter > 0) { counter--; } break;       // Lowers the current counter.
+        case buttonTwoPin: (counter = 0); break;                        // Resets the counter to default.
+        case buttonThreePin: if (counter < 255) { counter++; } break;   // Ups the current counter.
     }
-    updateDisplay();
+    updateDisplay(); // Updates display after change.
 }
 
-
+/**
+ * @brief Main function of program, handles the program loop and sets up its functionality.
+ * @return int 
+ */
 int main() {
-
     // It initialises the GPIO used for the LED's on the maker board.
     gpio_init(bitLedOne);
     gpio_init(bitLedTwo);
