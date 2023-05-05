@@ -4,6 +4,9 @@ add_executable(Pico_Fat_Writer
         hw_config.c
         )
 
+pico_enable_stdio_uart(Pico_Fat_Writer 1)
+pico_enable_stdio_usb(Pico_Fat_Writer 0)
+
 # Adds the subdirectory for this particular library #
 add_subdirectory(no-OS-FatFS-SD-SPI-RPi-Pico/FatFs_SPI build)
 
@@ -12,3 +15,5 @@ target_link_libraries(Pico_Fat_Writer pico_stdlib FatFs_SPI hardware_clocks hard
 
 # Creates the map/bin/hex file etc #
 pico_add_extra_outputs(Pico_Fat_Writer)
+pico_enable_stdio_uart(Pico_Fat_Writer 1)
+pico_enable_stdio_usb(Pico_Fat_Writer 1)
