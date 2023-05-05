@@ -16,8 +16,8 @@ endif()
 pico_sdk_init()
 
 # Adds directories for original projects made by me #
-#add_subdirectory(TCP_Math_Parser)
-#add_subdirectory(Image_Display)
+add_subdirectory(Fading_LED)
+#add_subdirectory(Binary_Buzzer)
 
 # Adds directories for projects made by others that I completed the stubs for #
 add_subdirectory(Light_Button)
