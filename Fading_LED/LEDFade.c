@@ -10,7 +10,9 @@ uint led;
 uint brightness = 0;
 bool increasing = true;
 
-// Updates the brightness value for the boards LED.
+/**
+ * @brief Updates the brightness value for the boards LED.
+ */
 void updateBrightness(void) {
     // Clears the LED via is PWM slice.
     pwm_clear_irq(pwm_gpio_to_slice_num(led));
@@ -29,7 +31,10 @@ void updateBrightness(void) {
     pwm_set_gpio_level(led, brightness);
 }
 
-// Main function of the program.
+/**
+ * @brief Main function of the program.
+ * @return int 
+ */
 int main() {
 
     // Sets led ID based on if the board has a Wifi chip or not.
