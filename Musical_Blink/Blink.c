@@ -13,7 +13,7 @@ float freqs[] = {261.63, 277.18, 293.66, 311.13, 329.63, 349.23, 369.99, 392.00,
  */
 void tone (float freq, float length, uint ledPin) {
     int cycles = 0; // Number of times the buzzer is turned on during a particular tone.
-    gpio_put(ledPin, 1); // Turns off LED before sound is played.
+    gpio_put(ledPin, 1); // Turns on LED before sound is played.
 
     // Switches on the GPIO for the buzzer for a particular tile in given intervals giving it a unique sound.
     while (cycles * (1/freq) < length / 1000)
