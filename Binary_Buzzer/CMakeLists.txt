@@ -1,6 +1,6 @@
 # Lists all local c files needed for the program #
 add_executable(Binary_Buzzer
-        BinBuz.c
+        BinBuzz.c
         )
 
 # Pulls in common dependencies #

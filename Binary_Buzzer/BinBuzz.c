@@ -12,6 +12,11 @@ uint binaryPosition = 0;
 bool binaryPlay = false;
 
 /**
+ * @brief Pauses the program between a buzz.
+ */
+void pauseTone() { sleep_ms(600); }
+
+/**
  * @brief Plays a musical note via the maker boards buzzer.
  */
 void playTone() {
@@ -19,7 +24,7 @@ void playTone() {
     uint cycles = 0;
     float freq = 261.63;
 
-    // Switches on the GPIO for the buzzer for a particular tile in given intervals giving it a unique sound.
+    // Switches on the GPIO for the buzzer a given number of times to produce the desired sound.
     while (cycles * (1/freq) < 0.6)
     {
         gpio_put(buzzerId, 1);
@@ -31,18 +36,16 @@ void playTone() {
 }
 
 /**
- * @brief Pauses the program between a buzz.
- */
-void pauseTone() { sleep_ms(600); }
-
-/**
  * @brief Plays the currently recorded sequence.
  */
 void playSequence() {
+    // Loops through the sequence, pauses tone on a '0', plays a tone on a '1'.
     for (uint pos = 0; pos < binaryPosition; pos++) {
         if (binarySequence[pos] == '0') {pauseTone();}
         else {playTone();}
     }
+
+    // Resets the required values for the next sequence to be played.
     binaryPosition = 0;
     binaryPlay = false;
 }
